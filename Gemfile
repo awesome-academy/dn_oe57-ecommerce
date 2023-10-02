@@ -61,6 +61,12 @@ gem "config"
 
 gem "ransack"
 
+# Gem sidekiq
+gem "sidekiq"
+
+# Gem 'figaro'
+gem "figaro"
+
 # Gem pagy
 gem "pagy"
 

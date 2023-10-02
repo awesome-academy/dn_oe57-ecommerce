@@ -3,6 +3,7 @@ class Order < ApplicationRecord
   has_many :order_details, dependent: :destroy
 
   enum status: {awaiting: 1, confirmed: 2, canceled: 3}
+  delegate :name, :email, to: :user, prefix: true
 
   validates :reciver_name, presence: true,
     length: {maximum: Settings.orders.length_30}

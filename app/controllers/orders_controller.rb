@@ -17,10 +17,11 @@ class OrdersController < ApplicationController
       @order.save!
       create_order_detail @order
       update_quantity_products
-      clear_cart
-      flash[:success] = t("success")
-      redirect_to root_path
     end
+    clear_cart
+    HardJob.perform_async @order.id
+    flash[:success] = t("success")
+    redirect_to root_path
   rescue ActiveRecord::RecordInvalid
     flash[:notice] = t("error")
     render "cart/index", status: :unprocessable_entity
@@ -36,7 +37,7 @@ class OrdersController < ApplicationController
     params.require(:order).permit :reciver_name,
                                   :reciver_address,
                                   :reciver_phone,
-                                  :total_price, :status
+                                  :total_price, :status, :user_id
   end
 
   def load_order
@@ -58,7 +59,7 @@ class OrdersController < ApplicationController
   def create_order_detail order
     keys_session = session[:cart]&.keys&.map(&:to_i)
     @products = Product.find_id keys_session
-    order_details = []
+    @order_details = []
     @products.each do |product|
       order_detail = OrderDetail.new(
         product:,
@@ -66,9 +67,9 @@ class OrdersController < ApplicationController
         price_product: product.price,
         quantity_product: session[:cart][product.id.to_s]
       )
-      order_details << order_detail
+      @order_details << order_detail
     end
-    order_details.each(&:save!)
+    @order_details.each(&:save!)
   end
 
   def update_quantity_products
