@@ -14,7 +14,7 @@
           </div>
         <div class="header__right">
           <% if logged_in? %>
-            <%= link_to cart_index_path, class: "text-decoration-none" do %> 
+            <%= link_to cart_index_path, class: "text-decoration-none" do %>
               <% if session.has_key?(:cart) && !session[:cart].empty? %>
                 <span class="cart__quantity"><%= session[:cart]&.length %></span>
               <% end %>
@@ -22,7 +22,7 @@
             <% end %>
             <%= image_tag("logos/account.png", :alt => "User menu", id: "account", :class => "user_menu_logo") %>
           <% else %>
-            <%= link_to t("log_in"), login_path, class: "fs-4" %>
+            <%= link_to t("log_in"), new_user_session_path, class: "fs-4" %>
           <% end %>
         </div>
       </div>

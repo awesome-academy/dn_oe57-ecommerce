@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   root "static_pages#home"
   get "static_pages/home"
 
+  devise_for :users, controllers: { registrations: 'custom_registrations' }
+
   resources :products
 
   get "/login", to: "session#new"
@@ -19,13 +21,6 @@ Rails.application.routes.draw do
     patch "cancel", to: "orders#cancel"
   end
 
-  namespace :admin do
-    resources :orders, only: :index do
-      patch "confirm", to: "orders#confirm"
-      patch "cancel", to: "orders#cancel"
-      get "reason", to: "orders#reason"
-    end
-  end
   resources :feedbacks
 
   namespace :admin do

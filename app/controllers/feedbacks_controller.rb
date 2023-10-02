@@ -33,7 +33,9 @@ class FeedbacksController < ApplicationController
   end
 
   def find_product
-    @product = Product.find_by(id: params.dig(:feedback, :product_id) || params[:product_id])
+    @product = Product.find_by(
+      id: params.dig(:feedback, :product_id) || params[:product_id]
+    )
     return if @product
 
     flash[:danger] = t("product_not_found")

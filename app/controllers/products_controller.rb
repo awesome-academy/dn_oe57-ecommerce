@@ -1,7 +1,7 @@
 class ProductsController < ApplicationController
   before_action :load_info_categories, only: %i(show index)
   before_action :load_product, only: %i(show)
-  before_action :admin_user, :load_category, only: %i(new create)
+  before_action :admin_user, :load_category, only: :new
 
   def show
     @feedbacks = @product.feedbacks.newest

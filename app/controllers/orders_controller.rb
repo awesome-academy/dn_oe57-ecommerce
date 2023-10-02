@@ -56,7 +56,9 @@ class OrdersController < ApplicationController
   end
 
   def load_order
-    @order = Order.includes(:order_details).find_by id: params[:id] || params[:order_id]
+    @order = Order.includes(:order_details).find_by(
+      id: params[:id] || params[:order_id]
+    )
     return if @order
 
     flash[:danger] = t("order_not_found")

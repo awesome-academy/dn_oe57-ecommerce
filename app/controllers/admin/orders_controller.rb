@@ -23,8 +23,7 @@ class Admin::OrdersController < ApplicationController
     ActiveRecord::Base.transaction do
       if params[:reason].present?
         @order.canceled!
-        return_quantity_products @order
-        UserMailer.cancel_order(@order, params[:reason]).deliver_now
+        handle_after_cancel
         redirect_to admin_orders_path, notice: t("order_has_been_cancelled")
       else
         flash[:danger] = t("enter_reason")
@@ -37,6 +36,12 @@ class Admin::OrdersController < ApplicationController
   end
 
   private
+
+  def handle_after_cancel
+    return_quantity_products @order
+    UserMailer.cancel_order(@order, params[:reason]).deliver_now
+  end
+
   def is_admin?
     return if current_user.is_admin
 

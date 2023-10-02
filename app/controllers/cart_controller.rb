@@ -13,8 +13,7 @@ class CartController < ApplicationController
 
   def add_to_cart
     session[:cart] ||= {}
-    session[:cart][@product.id.to_s] ||= 0
-    session[:cart][@product.id.to_s] += 1
+    handle_product_quantity
     respond_to do |format|
       flash[:success] =
         t("add_to_cart_noti") + " #{view_context.link_to(t('shopping_cart'),
@@ -60,6 +59,11 @@ class CartController < ApplicationController
   end
 
   private
+
+  def handle_product_quantity
+    session[:cart][@product.id.to_s] ||= 0
+    session[:cart][@product.id.to_s] += 1
+  end
 
   def load_product
     @product = Product.find_by id: params[:id]
