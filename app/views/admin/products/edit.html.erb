@@ -15,7 +15,9 @@
                         <% end %>
                         <h1 class="text-black fw-medium"><%= t("edit_product") %></h1>
                       </div>
-                      <%= image_tag(@product.image, alt: t("product_item"), class: "img-fluid rounded-3 ad_image_products w-50") %>
+                      <% if @product.image.attached? %>
+                        <%= image_tag(@product.image, alt: t("product_item"), class: "img-fluid rounded-3 ad_image_products w-50") %>
+                      <% end %>
                       <div class="row">
                         <div class="col-md-12 col-md-offset-3 order__form">
                           <%= form_for @product, url: { action: "update" }, namespace: "admin"  do |f| %>

@@ -1,9 +1,9 @@
 class Admin::ProductsController < ApplicationController
   before_action :load_info_categories,
                 only: %i(show index new create edit update)
-  before_action :load_product, only: %i(show edit update)
+  before_action :load_product, only: %i(show edit update destroy)
   before_action :load_category, only: :create
-  before_action :admin_user, only: %i(new create edit update)
+  before_action :admin_user
 
   def index
     @pagy, @products = pagy(Product.newest,
@@ -37,6 +37,15 @@ class Admin::ProductsController < ApplicationController
     else
       render :edit, status: :unprocessable_entity
     end
+  end
+
+  def destroy
+    if @product.destroy
+      flash[:success] = t("product_deleted")
+    else
+      flash[:danger] = t("deleted_failed")
+    end
+    redirect_to admin_products_path
   end
 
   private

@@ -8,7 +8,9 @@
         <div class="product_container">
           <div class="product_detail">
             <div class="product_img col-3">
+            <% if @product.image.attached? %>
               <%= image_tag(@product.image, alt: t("product_item"), class: "home_product_item_image") %>
+            <% end %>
             </div>
             <div class="product_info mt-3 col-5">
                 <h2 class="mb-3"><%= @product.name %></h2>

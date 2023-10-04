@@ -3,6 +3,8 @@ class Product < ApplicationRecord
   has_one_attached :image
   has_many :feedbacks, dependent: :destroy
 
+  acts_as_paranoid
+
   delegate :name, to: :category, prefix: true
 
   validates :name, presence: true,
@@ -16,7 +18,6 @@ class Product < ApplicationRecord
   validates :description, presence: true,
                   length: {maximum: Settings.products.length_30}
   validates :category_id, presence: true
-  validates :image, presence: true
 
   scope :sort_by_name, ->{order :name}
   scope :search_by_name, lambda {|name|

@@ -36,7 +36,9 @@
                           <td class="px-3 py-5"><%= product.name %></td>
 
                           <td class="px-3 py-5">
-                            <%= image_tag(product.image, alt: t("product_item"), class: "ad_image_products") %>
+                            <% if product.image.attached? %>
+                              <%= image_tag(product.image, alt: t("product_item"), class: "ad_image_products") %>
+                            <% end %>
                           </td>
 
                           <td class="px-3 py-5"><%= product.price %></td>
@@ -53,7 +55,8 @@
                               <%= link_to edit_admin_product_path(product), class: "text-decoration-none" do %>
                                 <button type="button" class="btn btn-lg btn-primary text-white fw-normal text-uppercase"><%= t("edit") %></button>
                               <% end %>
-                              <%= link_to product, data: {"turbo-method": :delete, turbo_confirm: "You sure?"}, class: "text-decoration-none" do %>
+
+                              <%= link_to [:admin, product], data: {"turbo-method": :delete, turbo_confirm: "You sure?"}, class: "text-decoration-none" do %>
                                 <button type="button" class="btn btn-lg btn-danger text-white fw-normal text-uppercase"><%= t("delete") %></button>
                               <% end %>
                             </div>

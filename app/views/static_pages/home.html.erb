@@ -22,7 +22,11 @@
               <div class="grid__column-1-5">
                   <%= link_to product, class: "text-decoration-none" do %>
                     <div class="home-product-item">
-                      <%= image_tag(product.image, alt: t("product_item"), class: "home_product_item_image") %>
+
+                      <% if product.image.attached? %>
+                        <%= image_tag(product.image, alt: t("product_item"), class: "home_product_item_image") %>
+                      <% end %>
+                      
                       <h4 class="home-product-item__name"><%= product.name %></h4>
                       <div class="home-product-item__price">
                         <span class="home-product-item__price-current"><%= product.price %></span>
