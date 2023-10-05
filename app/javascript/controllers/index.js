@@ -16,3 +16,30 @@ $("#account").click(function() {
 $("#btnClose").click(function() {
   $("#user-menu").removeClass("open-user-menu")
 })
+
+$(document).ready(function() {
+  $("#send-data-button").click(function() {
+
+    var selectedOrderIds = $("input[name='order_ids[]']:checked").map(function(){
+      return $(this).val();
+    }).get();
+
+    var reason = prompt("Enter the reason: ");
+
+    $.ajax({
+      url: "/admin/orders/batch_cancel",
+      type: "GET",
+      dataType: "json",
+      data: { selectedOrderIds: selectedOrderIds, reason: reason },
+      success: function(data) {
+        console.log(data);
+        alert("Cancel success")
+        location.reload();
+      },
+      error: function() {
+        console.error("Error fetching data.");
+        alert("Cancel faild")
+      }
+    });
+  });
+});

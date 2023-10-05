@@ -25,32 +25,40 @@
                       </tr>
                     </thead>
                     <tbody>
-                    <% @orders.each_with_index do |order, index| %>
-                      <tr class="fs-5">
-                        <td class="px-3 py-5"><%= index + 1 %></td>
-                        <td class="px-3 py-5"><%= order.user.name %></td>
-                        <td class="px-3 py-5 ps-5"><%= order.order_details.length %></td>
-                        <td class="px-3 py-5"><%= order.total_price %></td>
-                        <td class="px-3 py-5 fw-bold text-<%=order.status%>"><%= t("#{order.status}")%></td>
-                        <td class="px-3 py-5"><%= order.created_at %></td>
-                        <td class="px-3 py-5 text-center">
-                          <div class="d-grid gap-2 d-md-block">
-                            <%= link_to order, class: "text-decoration-none" do %>
-                              <button type="button" class="btn btn-lg btn-warning text-white fw-normal text-uppercase"><%= t("details") %></button>
-                            <% end %>
-                            <% if order.awaiting? %>
-                              <%= link_to admin_order_confirm_path(order), data: { "turbo-method": :patch}, class: "text-decoration-none" do %>
-                                <button type="button" class="btn btn-lg btn-primary text-white fw-normal text-uppercase"><%= t("confirm") %></button>
+
+                    <%= form_tag(batch_confirm_admin_orders_path, method: :post, data: { turbo_confirm: 'Are you sure?' }) do %>
+
+                      <% @orders.each_with_index do |order, index| %>
+                        <tr class="fs-5">
+                          <td class="px-3 py-5"><%= index + 1 %></td>
+                          <td class="px-3 py-5"><%= order.user.name %></td>
+                          <td class="px-3 py-5 ps-5"><%= order.order_details.length %></td>
+                          <td class="px-3 py-5"><%= order.total_price %></td>
+                          <td class="px-3 py-5 fw-bold text-<%=order.status%>"><%= t("#{order.status}")%></td>
+                          <td class="px-3 py-5"><%= order.created_at %></td>
+                          <td class="px-3 py-5 text-center">
+                            <div class="d-grid gap-2 d-md-block">
+                              <%= link_to order, class: "text-decoration-none" do %>
+                                <button type="button" class="btn btn-lg btn-warning text-white fw-normal text-uppercase"><%= t("details") %></button>
                               <% end %>
-                              <%= link_to admin_order_reason_path(order), data: { "turbo-method": :get}, class: "text-decoration-none" do %>
-                                <button type="button" class="btn btn-lg btn-danger text-white fw-normal text-uppercase"><%= t("cancel") %></button>
-                              <% end %>
-                            <% end %>
-                          </div>
-                        </td>
-                      </tr>
+                            </div>
+                          </td>
+
+                          <% if order.awaiting? %>
+                            <td class="px-3 py-5 align-middle text-center"><%= check_box_tag "order_ids[]", order.id %></td>
+                          <% end %>
+
+                        </tr>
+                      <% end %>
+
+                      <%= hidden_field_tag "selected_action", "", id: "selected_action" %>
+
+                      <%= submit_tag "confirm", name: "selected_action_button", value: t("confirm") %>
+                      <%= button_tag t("cancel"), id: "send-data-button", type: "button" %>
+
                     <% end %>
                     </tbody>
+
                     <%== pagy_bootstrap_nav(@pagy) %>
                   </table>
                   <%== pagy_bootstrap_nav(@pagy) %>

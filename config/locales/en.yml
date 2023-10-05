@@ -87,3 +87,5 @@ en:
   enter_reason: "Please enter the reason for order cancellation"
   can_not_update_order: "Can not update the order"
   out_of_stock: "This product is temporarily out of stock"
+  no_order_selected: "No order selected."
+  update_order_success: "Updated order success"

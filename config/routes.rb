@@ -25,9 +25,10 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :orders, only: :index do
-      patch "confirm", to: "orders#confirm"
-      patch "cancel", to: "orders#cancel"
-      get "reason", to: "orders#reason"
+      collection do
+        post "batch_confirm"
+        get "batch_cancel"
+      end
     end
 
     resources :products

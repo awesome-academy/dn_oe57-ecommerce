@@ -84,3 +84,5 @@ vi:
   create: "Thêm mới"
   delete: "Xóa"
   edit: "Sửa"
+  no_order_selected: "Không có đơn hàng nào được chọn."
+  update_order_success: "Đã cập nhật các đơn hàng thành công."
