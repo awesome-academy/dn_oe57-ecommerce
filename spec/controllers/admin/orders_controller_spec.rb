@@ -111,9 +111,15 @@ RSpec.describe Admin::OrdersController, type: :controller do
       context "cancel faild" do
         let(:params) {{ order_ids: []}}
 
+        it "order not change status" do
+          expect {
+            post :batch_cancel, params: params, format: :json
+          }.to_not change{[order1.reload.status, order2.reload.status]}
+        end
+
         context "orders selected empty" do
           before do
-            post :batch_confirm, params: params
+            post :batch_cancel, params: params
           end
 
           it "redirect to admin_orders_path" do
