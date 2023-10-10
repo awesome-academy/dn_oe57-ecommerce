@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
+  load_and_authorize_resource
   include CartHelper
 
-  before_action :logged_in_user
   before_action :load_product_in_cart, :total_price, only: :create
   before_action :load_order, only: %i(show cancel)
   before_action :correct_user, only: :cancel
@@ -63,14 +63,6 @@ class OrdersController < ApplicationController
 
     flash[:danger] = t("order_not_found")
     redirect_to root_url
-  end
-
-  def logged_in_user
-    return if logged_in?
-
-    flash[:danger] = t("please_log_in")
-    store_location
-    redirect_to login_url
   end
 
   def create_order_detail order

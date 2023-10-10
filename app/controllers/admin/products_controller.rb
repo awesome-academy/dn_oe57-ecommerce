@@ -1,9 +1,10 @@
 class Admin::ProductsController < ApplicationController
+  load_and_authorize_resource
+
   before_action :load_info_categories,
                 only: %i(show index new create edit update)
   before_action :load_product, only: %i(show edit update destroy)
   before_action :load_category, only: :create
-  before_action :admin_user
 
   def index
     @pagy, @products = pagy(Product.newest,
@@ -69,12 +70,5 @@ class Admin::ProductsController < ApplicationController
 
     flash[:danger] = t("category_not_found")
     redirect_to root_url
-  end
-
-  def admin_user
-    return if current_user&.is_admin?
-
-    redirect_to root_path
-    flash[:alert] = t("not_permission")
   end
 end

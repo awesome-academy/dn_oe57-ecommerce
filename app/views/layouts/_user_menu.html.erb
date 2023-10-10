@@ -1,5 +1,5 @@
 <!-- user menu -->
-<% if logged_in? %>
+<% if current_user %>
     <div class="user-menu " id="user-menu">
         <div class="btn-close">
             <%= image_tag("icon/close.png", :alt => "Close", :id => "btnClose") %>

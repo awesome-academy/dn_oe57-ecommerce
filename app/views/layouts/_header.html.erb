@@ -13,7 +13,7 @@
             <%= link_to "Vi", locale:"vi" %>
           </div>
         <div class="header__right">
-          <% if logged_in? %>
+          <% if current_user %>
             <%= link_to cart_index_path, class: "text-decoration-none" do %>
               <% if session.has_key?(:cart) && !session[:cart].empty? %>
                 <span class="cart__quantity"><%= session[:cart]&.length %></span>

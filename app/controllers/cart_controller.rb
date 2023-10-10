@@ -1,7 +1,7 @@
 class CartController < ApplicationController
   include CartHelper
+  before_action :authorize_user
 
-  before_action :logged_in_user
   before_action :load_product, only: %i(add_to_cart remove_to_cart
     decrease_quantity_cart increase_quantity_cart)
   after_action :total_price, only: %i(add_to_cart remove_to_cart
@@ -73,14 +73,6 @@ class CartController < ApplicationController
     redirect_to root_url
   end
 
-  def logged_in_user
-    return if logged_in?
-
-    flash[:danger] = t("please_log_in")
-    store_location
-    redirect_to login_url
-  end
-
   def handle_quantity_warning
     return unless session[:cart][@product.id.to_s] == @product.quantity
 
@@ -92,5 +84,9 @@ class CartController < ApplicationController
 
     flash[:danger] = t("out_of_stock")
     redirect_to @product
+  end
+
+  def authorize_user
+    authorize! :manage, :cart
   end
 end

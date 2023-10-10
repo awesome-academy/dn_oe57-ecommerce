@@ -1,7 +1,7 @@
 class FeedbacksController < ApplicationController
-  before_action :logged_in_user
+  load_and_authorize_resource
+
   before_action :find_product, only: %i(new create)
-  before_action :load_feedback, only: :create
 
   def new
     @feedback = current_user.feedbacks.new
@@ -9,6 +9,7 @@ class FeedbacksController < ApplicationController
 
   def create
     ActiveRecord::Base.transaction do
+      @feedback = current_user.feedbacks.build feedback_params
       @feedback.save!
       update_rating_product @product
       flash[:success] = t("success")
@@ -20,16 +21,12 @@ class FeedbacksController < ApplicationController
 
   private
 
-  def load_feedback
-    @feedback = current_user.feedbacks.new(
-      product: @product,
-      content: params[:feedback][:content],
-      rating: params[:feedback][:rating]
+  def feedback_params
+    extracted_params = params.require(:feedback).permit(
+      :content,
+      :rating,
+      :product_id
     )
-    return if @feedback
-
-    flash[:danger] = t("feedback_not_found")
-    redirect_to root_url
   end
 
   def find_product
@@ -40,14 +37,6 @@ class FeedbacksController < ApplicationController
 
     flash[:danger] = t("product_not_found")
     redirect_to root_url
-  end
-
-  def logged_in_user
-    return if logged_in?
-
-    flash[:danger] = t("please_log_in")
-    store_location
-    redirect_to login_url
   end
 
   def update_rating_product product

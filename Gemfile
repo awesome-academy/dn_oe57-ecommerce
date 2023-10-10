@@ -67,6 +67,8 @@ gem "devise-i18n"
 
 gem "paranoia"
 
+gem "cancancan"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html
   gem "byebug"

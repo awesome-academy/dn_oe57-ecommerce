@@ -1,5 +1,5 @@
 class Admin::OrdersController < ApplicationController
-  before_action :is_admin?
+  load_and_authorize_resource
   before_action :load_orders, only: %i(batch_confirm batch_cancel)
 
   def index
@@ -59,13 +59,6 @@ class Admin::OrdersController < ApplicationController
 
     redirect_to admin_orders_path
     flash[:error] = t("no_order_selected")
-  end
-
-  def is_admin?
-    return if current_user.is_admin
-
-    redirect_to root_path
-    flash[:danger] = t("not_admin")
   end
 
   def return_quantity_products order
