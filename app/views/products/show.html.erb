@@ -25,10 +25,26 @@
             </div>
             <div class="col-4">
               <div class="d-flex align-items-center justify-content-center h-100">
+
+              <% if @product.quantity > 0 %>
+
+                <% if session[:cart]&.dig(@product.id.to_s).present?%>
+                  <div class="bg-secondary px-5 py-3 text-white fs-5 fw-normal rounded-pill">
+                    <%= t("product_already_in_the_cart") %>
+                  </div>
+                <%else%>
                   <%= form_tag add_to_cart_path, remote: true, method: :GET do %>
                     <%= hidden_field_tag :id, @product.id %>
                     <%= submit_tag t("add_to_cart"), class: "btn-add-to-cart" %>
                   <% end %>
+                <% end %>
+
+              <%else%>
+                  <div class="bg-danger px-5 py-3 text-white fs-5 fw-normal rounded-pill">
+                    <%= "Sản phẩm tạm thời hết hàng" %>
+                  </div>
+              <% end %>
+
               </div>
             </div>
           </div>
@@ -44,12 +60,37 @@
               </p>
             </div>
           </div>
-          <!-- MÔ TẢ SẢN PHẨM -->
+          <!-- FEEDBACK -->
           <div class="product_detail-2">
             <div class="product_detail-2-header">
               <h2><%= t("feedback") %></h2>
             </div>
+            <div>
+              <ul class="feedbacks">
+                <% @feedbacks.each do |feedback| %>
+                  <li>
+                    <div class="d-flex align-items-start w-6">
+                      <%= image_tag("icon/avatar1.png", :alt => "Avater user") %>
+                      <div class="ms-3">
+                        <span class="text-black fs-4"><%= feedback.user_name %></span><br>
+
+                        <div class="home-product-item__rating">
+                          <% for i in (1..feedback.rating) do %>
+                            <i class="home-product-item__star--gold fas fa-star"></i>
+                          <% end %>
+                          <% for i in (1..(5 - feedback.rating)) do %>
+                            <i class="home-product-item__star fas fa-star"></i>
+                          <% end %>
+                        </div>
+                        <span class="text-secondary fs-5"><%= feedback.content %></span>
+                      </div>
+                    </div>
+                  </li>
+                <% end %>
+              </ul>
+            </div>
           </div>
+
         </div>
       </div>
       <div class="col-3 p-3">

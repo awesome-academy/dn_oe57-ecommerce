@@ -3,9 +3,9 @@ require 'rails_helper'
 RSpec.describe ProductsController, type: :controller do
   describe "GET #index" do
     let(:category) {create(:category)}
-    let!(:product) {create(:product, name: "Áo product", category: category)}
-    let!(:product1) {create(:product, name: "Clothes", category: category)}
-    let!(:product2) {create(:product, name:"Giày dép", category: category)}
+    let!(:product) {create(:product, name: "Áo product",price:12000, quantity:20,description: "Mo ta", category: category)}
+    let!(:product1) {create(:product, name: "Clothes",price:12000, quantity:20,description: "Mo ta", category: category)}
+    let!(:product2) {create(:product, name:"Giày dép", price:12000, quantity:20,description: "Mo ta", category: category)}
 
     context "with search by name" do
       it "result by name in params" do

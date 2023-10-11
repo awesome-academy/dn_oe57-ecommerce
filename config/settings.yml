@@ -1,5 +1,8 @@
 products:
   number_of_page_10: 10
+  length_30: 300
+  limit_price: 1000000000
+  limit_quantity: 100
 
 orders:
   length_30: 30

@@ -14,4 +14,10 @@ class Category < ApplicationRecord
   scope :find_id_or_parent, lambda {|id|
                               where("parent_id = :id OR id = :id", id:)
                             }
+  scope :search_by_name, lambda {|name|
+                           where("name LIKE ?", "%#{name}%")
+                         }
+  scope :find_id, lambda {|parent_id|
+                    where(parent_id:)
+                  }
 end

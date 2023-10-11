@@ -27,10 +27,11 @@
                 <div class="col-md-2 col-lg-2 col-xl-2">
                   <h5 class="mb-0 fs-4 fw-normal"><%= t("total_price") %></h5>
                 </div>
+                <div class="col-md-2 col-lg-2 col-xl-2">
+                </div>
               </div>
             <% @order.order_details.each do |order_detail| %>
-              <%= link_to order_detail.product, class: "text-decoration-none" do %>
-                <div class="row d-flex justify-content-between align-items-center my-3 text-black">
+            <div class="row d-flex justify-content-between align-items-center my-3 text-black">
                   <div class="col-md-1 col-lg-1 col-xl-1">
                     <%= image_tag(order_detail.product_image, alt: t("product_item"), class: "img-fluid rounded-3") %>
                   </div>
@@ -47,8 +48,10 @@
                   <div class="col-md-2 col-lg-2 col-xl-2">
                     <p class="lead fw-normal mb-2 fs-4 px-3"><%= order_detail.price_product * order_detail.quantity_product %></p>
                   </div>
-                </div>
-              <% end %>
+                  <div class="col-md-2 col-lg-2 col-xl-2">
+                    <%= link_to t("rating"), new_feedback_path(product_id: order_detail.product_id),class: "text-decoration-none text-danger" %>
+                  </div>
+                  </div>
             <% end %>
             <div class="row d-flex justify-content-between align-items-center mt-5">
               <div class="col-md-6 col-lg-6 col-xl-6">

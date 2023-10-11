@@ -37,8 +37,8 @@
                     <h5 class="text-uppercase fs-3"><%= t("total_price") %></h5>
                     <h5 class="fs-3"><%= @total_price %></h5>
                   </div>
-                  <% if logged_in? %>
-                    <%= render "orders/form_order"%>
+                  <% if logged_in? && session[:cart]&.empty? == false %>
+                    <%= render "orders/form_order" %>
                   <% end %>
               </div>
             </div>

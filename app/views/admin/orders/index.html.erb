@@ -42,7 +42,7 @@
                               <%= link_to admin_order_confirm_path(order), data: { "turbo-method": :patch}, class: "text-decoration-none" do %>
                                 <button type="button" class="btn btn-lg btn-primary text-white fw-normal text-uppercase"><%= t("confirm") %></button>
                               <% end %>
-                              <%= link_to admin_order_cancel_path(order), data: { "turbo-method": :patch}, class: "text-decoration-none" do %>
+                              <%= link_to admin_order_reason_path(order), data: { "turbo-method": :get}, class: "text-decoration-none" do %>
                                 <button type="button" class="btn btn-lg btn-danger text-white fw-normal text-uppercase"><%= t("cancel") %></button>
                               <% end %>
                             <% end %>

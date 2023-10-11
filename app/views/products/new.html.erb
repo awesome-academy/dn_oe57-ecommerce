@@ -1,0 +1,17 @@
+<div class="row">
+  <div class="col-md-12 col-md-offset-3 order__form">
+    <%= form_for @product, url: products_path  do |f| %>
+      <%= render "shared/error_messages", object: f.object %>
+      <%= f.label :name, class: "fs-4 mt-3 mb-2" %><%= f.text_field :name, class: "form-control" %>
+      <%= f.label :price, class: "fs-4 mt-3 mb-2" %><%= f.text_field :price, class: "form-control" %>
+      <%= f.label :quantity, class: "fs-4 mt-3 mb-2" %><%= f.text_field :quantity, class: "form-control" %>
+      <%= f.label :rating, class: "fs-4 mt-3 mb-2" %><%= f.text_field :rating, class: "form-control" %>
+      <%= f.label :description, class: "fs-4 mt-3 mb-2" %><%= f.text_area :description, class: "form-control" %>
+      <% @category.each do |category| %>
+        <%= f.radio_button :category_id, category.id %> <%= category.name %>
+      <% end %>
+       <%= f.file_field :image, accept: "image/jpeg, image/gif, image/png" %>
+      <%= f.submit t("create"), class: "btn btn-primary mt-4 order__btn" %>
+    <% end %>
+  </div>
+</div>

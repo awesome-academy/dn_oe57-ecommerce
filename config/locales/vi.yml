@@ -1,6 +1,6 @@
 vi:
   sign_up: "Đăng ký"
-  hello: "Xin chao"
+  hello: "Xin chào"
   categories: "Danh mục"
   products: "Sản phẩm"
   about_us: "Giới thiệu"
@@ -39,6 +39,8 @@ vi:
   order: "Đặt hàng"
   success: "Thành công"
   user_not_found: "Không tìm thấy người dùng"
+  rating: "Đánh giá"
+  content: "Nội dung đánh giá"
   activerecord:
     models:
       order: "Đơn hàng"
@@ -74,3 +76,14 @@ vi:
   name_of_product: "Tên sản phẩm"
   description_of_product: "Mô tả sản phẩm"
   please_log_in: "Vui lòng đăng nhập"
+  delivery_information: "Thông tin giao hàng"
+  cancel_order_confirmation: "Xác nhận hủy đơn hàng"
+  reason_order_cancellation: "Lý do hủy đơn hàng"
+  add_to_cart_noti: "Đã thêm sản phẩm vào giỏ hàng! Click vào đây để xem giỏ hàng."
+  product_already_in_the_cart: "Sản phẩm đã có trong giỏ hàng"
+  enter_reason: "Vui lòng nhập lý do hủy đơn"
+  can_not_update_order: "Không thể cập nhật đơn hàng"
+  out_of_stock: "Sản phẩm này tạm thời hết hàng"
+  create: "Thêm mới"
+  delete: "Xóa"
+  edit: "Sửa"

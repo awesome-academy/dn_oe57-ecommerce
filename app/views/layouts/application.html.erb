@@ -15,8 +15,8 @@
     <%= render "layouts/header" %>
     <div class="application">
       <% flash.each do |message_type, message| %>
-        <div class="alert alert-<%= message_type %>">
-          <%= message %>
+        <div class="fs-4 alert alert-<%= message_type %>">
+          <%= message.html_safe %>
         </div>
       <% end %>
       <%= yield %>

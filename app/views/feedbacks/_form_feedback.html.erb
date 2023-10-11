@@ -1,0 +1,20 @@
+<div class="row">
+  <div class="col-md-12 col-md-offset-3 order__form">
+    <%= form_for @feedback, url: feedbacks_path  do |f| %>
+      <%= render "shared/error_messages", object: f.object %>
+      <% (1..5).each do |rating| %>
+        <div class="my-3 d-flex align-items-center">
+          <%= f.radio_button :rating, rating, class: "me-2" %>
+
+          <% for i in (1..rating) do %>
+            <i class="home-product-item__star--gold fas fa-star fs-4 mx-2"></i>
+          <% end %>
+
+        </div>
+      <% end %>
+      <%= f.label :content, class: "fs-4 mt-3 mb-2" %><%= f.text_area :content, class: "form-control" %>
+      <%= f.hidden_field :product_id, value: @product.id %>
+      <%= f.submit t("rating"), class: "btn btn-primary mt-4 order__btn" %>
+    <% end %>
+  </div>
+</div>

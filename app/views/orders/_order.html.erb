@@ -16,7 +16,9 @@
     <div class="row d-flex justify-content-end align-items-center mt-5">
       <div class="col-md-6 col-lg-3 col-xl-3">
         <% if order.awaiting? %>
-          <button class="btn-base me-2 bg-danger"><%= t("cancel") %></button>
+          <%= link_to order_cancel_path(order), data: { "turbo-method": :patch}, class: "text-decoration-none" do %>
+            <button class="btn-base me-2 bg-danger"><%= t("cancel") %></button>
+          <% end %>
         <% end %>
         <%= link_to order, class: "text-decoration-none" do %>
           <button class="btn-base bg-light text-black"><%= t("details") %></button>

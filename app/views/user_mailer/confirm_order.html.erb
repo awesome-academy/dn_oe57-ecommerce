@@ -1,0 +1,43 @@
+<style>
+  .user_name {
+    color: red;
+    font-weight: bold;
+  }
+  td {
+    padding: 8px 16px;
+  }
+</style>
+
+<%= t("hello") %> <span class="user_name"> <%= @order.user_name %></span>
+<br><br>
+<%= t("order_has_been_confirmed") %>
+<br><br>
+<%= t("delivery_information") %>
+<table>
+<tbody>
+  <tr>
+    <td><%= t("reciver_name") %> :</td>
+    <td><%= @order.reciver_name %></td>
+  </tr>
+  <tr>
+    <td><%= t("reciver_address") %> :</td>
+    <td><%= @order.reciver_address %></td>
+  </tr>
+  <tr>
+    <td><%= t("reciver_phone") %> :</td>
+    <td><%= @order.reciver_phone %></td>
+  </tr>
+  <tr>
+    <td><%= t("date_time_order") %> :</td>
+    <td><%= @order.created_at %></td>
+  </tr>
+   <tr>
+    <td><%= t("status") %> :</td>
+    <td><%= @order.status %></td>
+  </tr>
+  <tr>
+    <td><%= t("total_price") %> :</td>
+    <td><%= @order.total_price %></td>
+  </tr>
+</tbody>
+</table>

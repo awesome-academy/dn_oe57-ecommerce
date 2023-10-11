@@ -29,7 +29,14 @@
                         <span><%= t("orders_management") %></span>
                     </div>
                 <% end %>
-            <hr>
+                <hr>
+                 <%= link_to admin_products_path, class: "text-decoration-none" do %>
+                    <div class="user-menu-list-item">
+                        <%= image_tag("icon/favourite.PNG", :alt => "") %>
+                        <span><%= "Quản lý sản phẩm" %></span>
+                    </div>
+                <% end %>
+                <hr>
             <% end %>
             <div class="user-menu-list-item">
                 <%= image_tag("icon/logout.PNG", :alt => "") %>
